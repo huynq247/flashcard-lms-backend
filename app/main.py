@@ -8,6 +8,7 @@ import os
 from app.config import settings
 from app.utils.database import connect_to_mongo, close_mongo_connection, ping_database
 from app.routers.v1 import health
+from app.api.v1.api import api_router
 
 # Configure logging
 logging.basicConfig(
@@ -63,6 +64,7 @@ if os.path.exists(settings.upload_dir):
 
 # Include routers
 app.include_router(health.router, prefix=settings.api_v1_prefix, tags=["health"])
+app.include_router(api_router, prefix=settings.api_v1_prefix)
 
 @app.get("/")
 async def root():
